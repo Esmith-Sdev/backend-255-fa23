@@ -1,14 +1,31 @@
 const express = require("express")
+var cors = require("cors")
 //Tells app variable to be an express server
 const app = express()
+app.use(cors())
 const router = express.Router()
-//start the web server... app.listen(portnumber,function)
-app.listen(3000, function() {
-    console.log("Listening on port 3000")
-})
 
 //Making an api using routes
 //Routes are used to handle browser requests. They look like URL's but the difference is when a browser requests a route, it is dynamically handled using a function
 
-//GET or a regular request when someone goes to http://localhost:3000/hello. when using a function in a route we almost always have a parameter or handle a response & request.
- 
+router.get("/songs", function(req,res) {
+    const songs = [
+    {
+        title: "Uptown Funk",
+        artist: "Bruno Mars",
+        popularity: 10,
+        genre: ["funk","boogie"]
+    },
+    {
+        title: "Happy",
+        artist: "Pharrell Williams",
+        popularity: 10,
+        genre: ["Soul","Funk"]
+    }
+    ]   
+    res.json(songs)
+})
+
+//all requests that usually use an api start with /api... so the url would be localhost:3000/api/songs
+app.use("/api", router)
+app.listen(3000)
