@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://sdev255:Sdev2025@SongDB.1iwbe5a.mongodb.net/?retryWrites=true&w=majority&appName=SongDB",
-  { useNewUrlParser: true }
-);
+const uri = process.env.MONGODB_URI;
+mongoose
+  .connect(uri, {})
+  .then(() => console.log("Mongo connected"))
+  .catch((err) => {
+    console.error("Mongo error", err);
+    process.exit(1);
+  });
 
 module.exports = mongoose;

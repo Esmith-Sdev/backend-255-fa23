@@ -1,5 +1,6 @@
 const express = require("express");
 var cors = require("cors");
+require("./db");
 const bodyParser = require("body-parser");
 const Song = require("./models/song");
 const app = express();
@@ -54,4 +55,5 @@ router.put("/songs/:id", async (req, res) => {
 
 //all requests that usually use an api start with /api... so the url would be localhost:3000/api/songs
 app.use("/api", router);
-app.listen(3000);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("Listening on " + PORT));
